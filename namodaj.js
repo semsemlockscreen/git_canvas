@@ -19538,7 +19538,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 			function dragMouseDown(e) {
 				e = e || window.event;
-				e.preventDefault();
+				//e.preventDefault();
 				// get the mouse cursor position at startup:
 				pos3 = e.clientX;
 				pos4 = e.clientY;
