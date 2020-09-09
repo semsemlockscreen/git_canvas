@@ -17766,11 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		
-		
-		
-		
-		
+		alert('v = 20');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
