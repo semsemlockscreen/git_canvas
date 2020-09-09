@@ -18657,7 +18657,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		var soundIsReady;
 		var soundEnd;
 		var duration;
-		var frame_start_sound = 10;
+		var frame_start_sound = 0;
 		var on;
 		
 		function soundManager(soundMc) {
@@ -18773,12 +18773,16 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 		
-			function resetSoundPosition(rate) {
-		
-				that.music.setPosition(duration * rate);
-		
-			}
-		
+						function resetSoundPosition(rate) {
+
+		sound_position = duration * rate;
+		if (isNaN(sound_position) || sound_position === Infinity) {
+			sound_position = 0.1;
+		}
+
+		that.music.setPosition(sound_position);
+
+	}
 			if (soundIsReady) that.sound_sld.resetSoundPosition = resetSoundPosition;
 		
 		
