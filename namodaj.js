@@ -14272,7 +14272,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 		
 			that.parent.mov.gotoAndPlay(totalFrm * that.rate);
 		
-			that.parent.resetSoundPosition(that.rate);
+			that.parent.parent.resetSoundPosition(that.rate);
 		
 			//we change this variable after setting the new sound position 
 			//to start updating the trk position on tick function from sound
@@ -18776,11 +18776,12 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			sound_position = 0.1;
 		}
 
+	if(that.music !== null)
 		that.music.setPosition(sound_position);
 
 	}
-			if (soundIsReady) that.sound_sld.resetSoundPosition = resetSoundPosition;
 		
+			  that.resetSoundPosition = resetSoundPosition;
 		
 		
 			createjs.Ticker.on("tick", updateTRK);
