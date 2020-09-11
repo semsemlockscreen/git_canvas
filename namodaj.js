@@ -18069,6 +18069,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		cont.startDrag = startDrag;
 		
 		
+		var previous_x_update = false ;
 		
 		function onmousedown(e) {
 		
@@ -18085,7 +18086,10 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 				x: posX - e.currentTarget.x,
 				y: posY - e.currentTarget.y
 			};
-		
+		        e.currentTarget.down = {
+				x: posX,
+				y: posY 
+			};
 		
 		}
 		
@@ -18102,6 +18106,20 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		cont.stopDrag = stopDrag;
+		
+		
+		function swapToNext(newdist  , evt){
+			
+			alert('next'+newdist );
+			if( newdist> 100){
+				
+				toNx(evt);
+				}
+			if( newdist< -100){
+				
+				toPrv(evt);
+				}
+		}
 		
 		
 		function onpressmove(e) {
@@ -18122,7 +18140,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 				e.currentTarget.x = newX;
 		
 				update_coord = true; //much smoother because it refreshes the screen every pixel movement instead of the FPS set on the Ticker
-		
+		                   previous_x_update = true;
 			}
 		
 			var mult2 = scaleFac * firstheight;
@@ -18150,7 +18168,11 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		//Mouse UP and SNAP====================
 		function onpressup(evt) {
 		
-		
+		          var pt = that.globalToLocal(evt.stageX, evt.stageY);
+			//if the diff between the x coord of touch/mouse down end up is bigger than 100 and the is no x_drag of the container 'cont'
+			if ( (Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac)  > 100 &&  !previous_x_update ){
+				swapToNext(evt.currentTarget.down.x - pt.x , evt);
+			}
 			cont.isDragged = false;
 		
 		}
