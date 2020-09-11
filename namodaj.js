@@ -18167,7 +18167,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		//Mouse UP and SNAP====================
 		function onpressup(evt) {
-		   console.log(Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac):
+		   console.log(Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac);
 		          var pt = that.globalToLocal(evt.stageX, evt.stageY);
 			//if the diff between the x coord of touch/mouse down end up is bigger than 100 and the is no x_drag of the container 'cont'
 			if ( (Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac)  > 100 &&  !previous_x_update ){
