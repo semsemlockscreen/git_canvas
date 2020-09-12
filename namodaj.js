@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 33');
+		alert('v = 34');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -18110,8 +18110,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function swapToNext(newdist  , evt){
 			
-			alert('next'+newdist );
-			alert(evt);
+			
 			if( newdist> 100){
 				
 				toNx(evt , true);
@@ -18170,8 +18169,8 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		function onpressup(evt) {
 		 // stage.preventSelection = false;
 		          var pt = that.globalToLocal(evt.stageX, evt.stageY); 
-			console.log(Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac);
-			//if the diff between the x coord of touch/mouse down end up is bigger than 100 and the is no x_drag of the container 'cont'
+			console.log('onpressup swap dist' + Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac);
+			//if the diff between the x coord of touch/mouse down end up is bigger than 100 and the is no drag action on the container 'cont'
 			if ( (Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac)  > 100 &&  !previous_x_update || (cont.isDragged && scaleFac===0) ){
 				swapToNext(evt.currentTarget.down.x - pt.x , evt);
 			}
