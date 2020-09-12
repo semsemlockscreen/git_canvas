@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 34');
+		alert('v = 35');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -17856,7 +17856,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		var chafaf = new lib.chafaf();
 		
 		// enable touch interactions if supported on the current device:
-		createjs.Touch.enable(stage, false, true);
+		createjs.Touch.enable(stage, true, true);
 		
 		
 		
