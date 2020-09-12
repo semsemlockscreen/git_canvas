@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 31');
+		alert('v = 32');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -17988,7 +17988,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		}
 		
-		function toPrv(ev) {
+		function toPrv(ev ,swap = false) {
 		
 			if (ev.nativeEvent instanceof MouseEvent) {
 		
@@ -18013,9 +18013,9 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		}
 		
 		
-		function toNx(ev) {
+		function toNx(ev ,swap = false) {
 		alert(ev.nativeEvent);
-			if (ev === null || ev.nativeEvent instanceof MouseEvent) {
+			if (swap  || ev.nativeEvent instanceof MouseEvent) {
 		
 				if (currentPage + 2 > maxPage) return;
 		
@@ -18114,11 +18114,11 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			alert(evt);
 			if( newdist> 100){
 				
-				toNx(null);
+				toNx(evt , true);
 				}
 			if( newdist< -100){
 				
-				toPrv(evt);
+				toPrv(evt , true);
 				}
 		}
 		
