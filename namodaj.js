@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 28');
+		alert('v = 29');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -18014,7 +18014,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		function toNx(ev) {
-		
+		alert(ev.nativeEvent);
 			if (ev.nativeEvent instanceof MouseEvent) {
 		
 				if (currentPage + 2 > maxPage) return;
