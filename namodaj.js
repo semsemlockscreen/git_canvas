@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 35');
+		alert('v = 36');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -18070,13 +18070,13 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var previous_x_update = false ;
-		
+		stage.preventSelection = false;
 		function onmousedown(e) {
 		
 		
 			cont.isDragged = false;
 		
-			stage.preventSelection = false;
+			
 		         previous_x_update = false;
 		
 			var pt = that.globalToLocal(e.stageX, e.stageY);
