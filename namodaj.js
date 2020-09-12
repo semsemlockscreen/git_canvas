@@ -15432,9 +15432,12 @@ p.nominalBounds = new cjs.Rectangle(0,0,1252.4,1294.6);
 		
 		
 		that.hijab_alpha.alpha = 1;
-		
-		that.add_alpha.addEventListener("click", addalfa);
-		
+		that.listeners_are_added = false;
+
+		if (!that.listeners_are_added) {
+	that.add_alpha.addEventListener("click", addalfa);
+	that.listeners_are_added = true;
+}
 		
 		function addalfa(ev) {
 		
@@ -15445,11 +15448,11 @@ p.nominalBounds = new cjs.Rectangle(0,0,1252.4,1294.6);
 				if (clicked) {
 		
 					that.hijab_alpha.alpha = 0;
-		
+		that.add_alpha.gotoAndStop(1);
 		
 				} else {
 					that.hijab_alpha.alpha = 1;
-		
+		that.add_alpha.gotoAndStop(0);
 		
 				}
 			}
@@ -17766,7 +17769,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 36');
+		alert('v = 37');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
