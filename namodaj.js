@@ -17766,7 +17766,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 30');
+		alert('v = 31');
 		
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
@@ -18015,7 +18015,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function toNx(ev) {
 		alert(ev.nativeEvent);
-			if (ev.nativeEvent instanceof MouseEvent) {
+			if (ev === null || ev.nativeEvent instanceof MouseEvent) {
 		
 				if (currentPage + 2 > maxPage) return;
 		
@@ -18114,7 +18114,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			alert(evt);
 			if( newdist> 100){
 				
-				toNx(evt);
+				toNx(null);
 				}
 			if( newdist< -100){
 				
@@ -18125,7 +18125,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function onpressmove(e) {
 		
-		
+		 stage.preventSelection = false;
 			cont.isDragged = true;
 		
 			var pt = that.globalToLocal(e.stageX, e.stageY);
@@ -18168,7 +18168,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		//Mouse UP and SNAP====================
 		function onpressup(evt) {
-		  //stage.preventSelection = false;
+		  stage.preventSelection = false;
 		          var pt = that.globalToLocal(evt.stageX, evt.stageY); 
 			console.log(Math.abs(evt.currentTarget.down.x - pt.x)*scaleFac);
 			//if the diff between the x coord of touch/mouse down end up is bigger than 100 and the is no x_drag of the container 'cont'
