@@ -17769,8 +17769,8 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			});
 		
 		
-		alert('v = 37');
-		
+		alert('v = 38');
+		alert('is touch = ' + createjs.Touch.isSupported ());
 			vid = document.getElementById('vi');
 			source = document.createElement('source');
 		
