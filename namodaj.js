@@ -17990,7 +17990,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function toPrv(ev ,swap = false) {
 		
-			if (ev.nativeEvent instanceof MouseEvent) {
+			if (swap  || ev.nativeEvent instanceof MouseEvent) {
 		
 				if (currentPage - 2 < 0) return;
 				currentPage -= 2;
