@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 40');
+		alert('v = 41');
 		
 		//setTimeout(function () {
 		
@@ -19055,13 +19055,16 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			//setlisteners();
 		
 		
-			function onloun(e) {
-		
-		
-				e.currentTarget.gotoAndStop(currentloun);
-		
-		
-			}
+				function onloun(e) {
+
+		if (e.nativeEvent instanceof MouseEvent) {
+
+			if (e.currentTarget.currentFrame !== 0) {
+				e.currentTarget.gotoAndStop(0);
+			} else e.currentTarget.gotoAndStop(currentloun);
+		}
+
+	}
 			function onforchat(e) {
 		
 		
@@ -19271,13 +19274,17 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			setlisteners();
 		
 		
-			function onloun(e) {
-		
-		
-				e.currentTarget.gotoAndStop(currentloun);
-		
-		
-			}
+				function onloun(e) {
+
+		if (e.nativeEvent instanceof MouseEvent) {
+
+			if (e.currentTarget.currentFrame !== 0) {
+				e.currentTarget.gotoAndStop(0);
+			} else e.currentTarget.gotoAndStop(currentloun);
+		}
+
+	}
+			
 			function onforchat(e) {
 		
 		
@@ -19502,15 +19509,16 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		
-			function onloun(e) {
-		
-		
-		
-				console.log("currentloun " + currentloun);
-				e.currentTarget.gotoAndStop(currentloun);
-		
-		
-			}
+				function onloun(e) {
+
+		if (e.nativeEvent instanceof MouseEvent) {
+
+			if (e.currentTarget.currentFrame !== 0) {
+				e.currentTarget.gotoAndStop(0);
+			} else e.currentTarget.gotoAndStop(currentloun);
+		}
+
+	}
 			function onforchat(e) {
 		
 		
@@ -20489,12 +20497,12 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 			function onKLK(e) {
-		
-		
-				e.currentTarget.gotoAndStop(e.currentTarget.currentFrame == 0 ? 1 : 0);
-		
-		
-			}
+
+		if (e.nativeEvent instanceof MouseEvent) {
+			e.currentTarget.gotoAndStop(e.currentTarget.currentFrame == 0 ? 1 : 0);
+		}
+
+	}
 		
 		
 		
