@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 39');
+		alert('v = 40');
 		
 		//setTimeout(function () {
 		
@@ -18632,7 +18632,11 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		var Hjb = new lib.hijabTmrn();
 		function drawHjb() {
-		
+			
+		        Hjb.clicked = false;
+			Hjb.hijab_alpha.alpha = 1;
+			Hjb.add_alpha.gotoAndStop(0);
+			
 			contmrn.addChild(Hjb);
 		
 			if (cont.mc.type == "sound") {
