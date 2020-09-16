@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 48');
+		alert('v = 49');
 		
 		//setTimeout(function () {
 		
@@ -21038,33 +21038,34 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 			function dragMouseDown(e) {
-				alert('down'+e.stageX);
-				e = e || window.event;
-				e.preventDefault();
-				// get the mouse cursor position at startup:
-				pos3 = e.stageX;
-				pos4 = e.stageY;
-				document.onmouseup = closeDragElement;
-				// call a function whenever the cursor moves:
-				document.onmousemove = elementDrag;
-			}
+		e = e || window.event;
+				alert('down' + e.clientX);
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		alert('move ' + e.clientX);
 		
-			function elementDrag(e) {
-				alert('move' + e.stageX);
-				e = e || window.event;
-				e.preventDefault();
-				// calculate the new cursor position:
-				pos1 = pos3 - e.stageX;
-				pos2 = pos4 - e.stageY;
-				pos3 = e.stageX;
-				pos4 = e.stageY;
-				// set the element's new position:
-				elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-				elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-			}
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+	}
 		
 			function closeDragElement(e) {
-				alert('up' + e.stageX);
+				alert('up' + e.clientX);
 				// stop moving when mouse button is released:
 				document.onmouseup = null;
 				document.onmousemove = null;
