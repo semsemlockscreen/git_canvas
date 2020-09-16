@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 49');
+		alert('v = 50');
 		
 		//setTimeout(function () {
 		
@@ -20992,6 +20992,9 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		cont.addVideo = addVideo;
 		cont.scr = "";
 		
+		function vidMove(e){
+			
+		}
 		function Delete() {
 		
 		
@@ -21044,9 +21047,9 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		// get the mouse cursor position at startup:
 		pos3 = e.clientX;
 		pos4 = e.clientY;
-		document.onmouseup = closeDragElement;
+		document.getElementById(elmnt.id + "header").onmouseup = closeDragElement;
 		// call a function whenever the cursor moves:
-		document.onmousemove = elementDrag;
+		document.getElementById(elmnt.id + "header").onmousemove = elementDrag;
 	}
 
 	function elementDrag(e) {
