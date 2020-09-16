@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 47');
+		alert('v = 48');
 		
 		//setTimeout(function () {
 		
@@ -21038,7 +21038,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 			function dragMouseDown(e) {
-				alert('down'+e);
+				alert('down'+e.stageX);
 				e = e || window.event;
 				e.preventDefault();
 				// get the mouse cursor position at startup:
@@ -21050,8 +21050,8 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 			function elementDrag(e) {
-				alert('move' + e);
-				//e = e || window.event;
+				alert('move' + e.stageX);
+				e = e || window.event;
 				e.preventDefault();
 				// calculate the new cursor position:
 				pos1 = pos3 - e.stageX;
@@ -21064,7 +21064,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 			function closeDragElement(e) {
-				alert('up' + e);
+				alert('up' + e.stageX);
 				// stop moving when mouse button is released:
 				document.onmouseup = null;
 				document.onmousemove = null;
