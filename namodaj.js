@@ -14198,7 +14198,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 	this.frame_0 = function() {
 		var that = this;
 		
-		var stopReceivingOnTickSound;
+		that.stopReceivingOnTickSound;
 		
 		
 		this.trk.addEventListener("pressup", onpressup);
@@ -14213,7 +14213,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 		
 		var rect = new createjs.Shape();
 		rect.graphics.beginFill("#ff0000"); //("#f00");
-		rect.graphics.drawRect(-30, -10, 70,
+		rect.graphics.drawRect(0, -10, 70,
 			30); //rect.graphics.drawRect(0, 0, 660, 450);
 		rect.graphics.endFill();
 		
@@ -14228,7 +14228,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 			var posX = pt.x;
 			var posY = pt.y;
 		
-			stopReceivingOnTickSound = true;
+			that.stopReceivingOnTickSound = true;
 		
 		}
 		
@@ -14267,7 +14267,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 			//we change this variable after setting the new sound position 
 			//to start updating the trk position on tick function from sound
 		
-			stopReceivingOnTickSound = false;
+			that.stopReceivingOnTickSound = false;
 		}
 		
 		
@@ -14280,7 +14280,7 @@ p.nominalBounds = new cjs.Rectangle(-52.6,-87.8,103.5,177.39999999999998);
 		
 		that.resetTrk = function (rate) {
 		
-			if (!stopReceivingOnTickSound) {
+			if (!that.stopReceivingOnTickSound) {
 		
 				that.trk.x = sldWidth * rate;
 				that.rate = rate;
@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 51');
+		alert('v = 52');
 		
 		//setTimeout(function () {
 		
@@ -18787,11 +18787,13 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			soundIsReady = false;
 			on = false;
 			isfirst = true;
+		     soundEnd = false;
 		
 			that.sound_sld.musicBtn.musicOn.visible = false;
 			that.sound_sld.musicBtn.musicOff.visible = true;
 			that.sound_sld.cursor.mouseEnabled = false;
-		
+			
+		     that.sound_sld.cursor.rate = 0 ;
 		
 		
 		
@@ -18854,9 +18856,10 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 						}
 		
-						soundMc.play();
+						that.sound_sld.mov.play();
 		
-		
+		                 that.sound_sld.stopReceivingOnTickSound = false;
+
 						if (soundEnd) {
 		
 							that.music.play();
@@ -18873,7 +18876,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 						on = !on;
 		
 		
-						console.log("mov.currentFrame : " + soundMc.currentFrame);
+						console.log("mov.currentFrame : " + that.sound_sld.mov.currentFrame);
 		
 						that.sound_sld.cursor.mouseEnabled = true;
 		
@@ -18884,8 +18887,10 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 						that.music.paused = true;
 						on = false;
 		
-						soundMc.stop();
-		
+						that.sound_sld.mov.stop();
+						
+		 that.sound_sld.stopReceivingOnTickSound = true;
+
 						that.sound_sld.cursor.mouseEnabled = false;
 					}
 				}
@@ -18924,17 +18929,17 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 				soundEnd = true;
 		
-				soundMc.gotoAndStop(frame_start_sound); // change to new frame start
+				that.sound_sld.mov.gotoAndStop(frame_start_sound); // change to new frame start
 				that.sound_sld.cursor.mouseEnabled = false;
 		
 				that.sound_sld.musicBtn.musicOn.visible = false;
 				that.sound_sld.musicBtn.musicOff.visible = true;
 		
 				on = false;
-		
+		console.log('sound complete');
 			}
 		
-			soundMc.addEventListener("removed", removeListeners);
+			that.sound_sld.mov.addEventListener("removed", removeListeners);
 		
 			function removeListeners(e) {
 		
@@ -18943,8 +18948,8 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 				//////alert("soundremoved");
 				createjs.Sound.removeEventListener("fileload", handleLoad);
 				//that.sound_sld.musicBtn.removeEventListener("click", musicToggle);
-				soundMc.removeEventListener("removed", removeListeners);
-		
+				that.sound_sld.mov.removeEventListener("removed", removeListeners);
+		        that.sound_sld.mov=null;
 		
 				that.sound_sld.visible = false;
 				//that.sound_sld.musicBtn.musicOn.visible = true;
@@ -20992,9 +20997,6 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		cont.addVideo = addVideo;
 		cont.scr = "";
 		
-		function vidMove(e){
-			
-		}
 		function Delete() {
 		
 		
@@ -21042,7 +21044,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 			function dragMouseDown(e) {
 		e = e || window.event;
-				alert('down' + e.clientX);
+				
 		e.preventDefault();
 		// get the mouse cursor position at startup:
 		pos3 = e.clientX;
@@ -21054,7 +21056,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 
 	function elementDrag(e) {
 		e = e || window.event;
-		alert('move ' + e.clientX);
+		
 		
 		e.preventDefault();
 		// calculate the new cursor position:
@@ -21068,7 +21070,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 	}
 		
 			function closeDragElement(e) {
-				alert('up' + e.clientX);
+				
 				// stop moving when mouse button is released:
 				document.onmouseup = null;
 				document.onmousemove = null;
