@@ -17806,7 +17806,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 52');
+		alert('v = 53');
 		
 		//setTimeout(function () {
 		
@@ -18170,7 +18170,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 			cont.isDragged = false;
 		
-			stage.preventSelection = false;
+			//stage.preventSelection = false;
 			previous_x_update = false;
 		
 			var pt = that.globalToLocal(e.stageX, e.stageY);
@@ -20830,7 +20830,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			//Mouse UP and SNAP====================
 			function onpressup(evt) {
 		
-				stage.preventSelection = false;
+				//stage.preventSelection = false;
 		
 				var isHit = false;
 		
