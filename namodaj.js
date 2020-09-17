@@ -15270,8 +15270,8 @@ p.nominalBounds = new cjs.Rectangle(-15.5,-17,658,196.7);
 		
 		
 		function handle8(e) {
-		//if (that.parent.isDragged) return;
-			alert('isDragged'+isDragged);
+		if (that.parent.isDragged) return;
+			alert(isDragged);
 			console.log("clicked" + e.currentTarget);
 			switch (e.currentTarget) {
 		
@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 55');
+		alert('v = 56');
 		
 		//setTimeout(function () {
 		
