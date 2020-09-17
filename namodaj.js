@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 56');
+		alert('v = 57');
 		
 		//setTimeout(function () {
 		
@@ -18170,7 +18170,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 			cont.isDragged = false;
-		          alert(e);
+		        
 			//stage.preventSelection = false;
 			previous_x_update = false;
 		
