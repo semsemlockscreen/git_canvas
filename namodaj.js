@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 54');
+		alert('v = 55');
 		
 		//setTimeout(function () {
 		
