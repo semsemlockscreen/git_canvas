@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 63');
+		alert('v = 65');
 		
 		//setTimeout(function () {
 		
@@ -18151,7 +18151,9 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		function startDrag() {
 		
 			cont.addEventListener("mousedown", onmousedown);
-		
+		            cont.addEventListener("pressmove", onpressmove);
+		         cont.addEventListener("pressup", onpressup);
+			
 		
 		}
 		
@@ -18172,8 +18174,6 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			
 			previous_x_update = false;
 			
-			cont.addEventListener("pressmove", onpressmove);
-		         cont.addEventListener("pressup", onpressup);
 			
 			var pt = that.globalToLocal(e.stageX, e.stageY);
 			var posX = pt.x;
@@ -18260,8 +18260,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 			if ( evt.nativeEvent instanceof MouseEvent) {
 		
-			cont.removeEventListener("pressmove", onpressmove);
-		    cont.removeEventListener("pressup", onpressup);
+			
 			
 			var pt = that.globalToLocal(evt.stageX, evt.stageY);
 			console.log('onpressup swap dist' + Math.abs(evt.currentTarget.down.x - pt.x) * scaleFac);
