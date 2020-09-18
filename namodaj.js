@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 62');
+		alert('v = 63');
 		
 		//setTimeout(function () {
 		
@@ -18258,7 +18258,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function onpressup(evt) {
 		
-			if ( e.nativeEvent instanceof MouseEvent) {
+			if ( evt.nativeEvent instanceof MouseEvent) {
 		
 			cont.removeEventListener("pressmove", onpressmove);
 		    cont.removeEventListener("pressup", onpressup);
