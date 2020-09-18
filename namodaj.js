@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 67');
+		alert('v = 68');
 		
 		//setTimeout(function () {
 		
@@ -18168,7 +18168,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function onmousedown(e) {
 		stage.preventSelection = false;
-		if ( e.nativeEvent instanceof MouseEvent) {
+		
 			cont.isDragged = false;
 		
 			
@@ -18187,7 +18187,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 				x: posX,
 				y: posY
 			};
-		}
+		
 		
 		}
 		function stopDrag() {
@@ -18216,7 +18216,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		}
 		
 		function onpressmove(e) {
-		if ( e.nativeEvent instanceof MouseEvent) {
+		
 		
 			cont.isDragged = true;
 		
@@ -18252,7 +18252,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			console.log("from main fram 1 : cont.x  " + cont.x);
 		
 		
-		}
+		
 		
 		
 		}
@@ -18260,7 +18260,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		function onpressup(evt) {
 		
-			if ( evt.nativeEvent instanceof MouseEvent) {
+			
 		
 			
 			
@@ -18273,7 +18273,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 			}
 		
 			cont.isDragged = false;
-			}
+			
 		}
 		
 		
@@ -18835,7 +18835,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 				if (eve.nativeEvent instanceof MouseEvent) {
 		
-					if (!on && soundIsReady) {
+					if (!on && soundIsReady===true) {
 		
 						that.sound_sld.musicBtn.musicOn.visible = true;
 		
@@ -18884,7 +18884,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 						that.sound_sld.cursor.mouseEnabled = true;
 		
-					} else if (on && soundIsReady) {
+					} else if (on && soundIsReady===true) {
 		
 						that.sound_sld.musicBtn.musicOn.visible = false;
 						that.sound_sld.musicBtn.musicOff.visible = true;
