@@ -17807,7 +17807,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		
 		
 		var isTouch = createjs.Touch.isSupported();
-		alert('v = 68');
+		alert('v = 69');
 		
 		//setTimeout(function () {
 		
@@ -18943,7 +18943,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 		console.log('sound complete');
 			}
 		
-			that.sound_sld.mov.addEventListener("removed", removeListeners);
+			soundMc.addEventListener("removed", removeListeners);
 		
 			function removeListeners(e) {
 		
@@ -18952,7 +18952,7 @@ p.nominalBounds = new cjs.Rectangle(-425.3,-76.7,850.6,144.3);
 				//////alert("soundremoved");
 				createjs.Sound.removeEventListener("fileload", handleLoad);
 				//that.sound_sld.musicBtn.removeEventListener("click", musicToggle);
-				that.sound_sld.mov.removeEventListener("removed", removeListeners);
+				soundMc.removeEventListener("removed", removeListeners);
 		        that.sound_sld.mov=null;
 		
 				that.sound_sld.visible = false;
