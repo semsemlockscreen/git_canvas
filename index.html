@@ -13,6 +13,7 @@
 <meta name="authoring-tool" content="Adobe_Animate_CC">
 <title>namodaj</title>
 <!-- write your code here -->
+
 <style>
 /* to prevent window go left/right up/down */
 html, body {
@@ -75,14 +76,14 @@ position: absolute;
 }
 </style>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-<script src="namodaj.js?1599676539303"></script>
+<script src="namodaj.js?1602180968712"></script>
 <script>
-var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation , font_size  ,scal_x;
 function init() {
 	canvas = document.getElementById("canvas");
 	anim_container = document.getElementById("animation_container");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("0B09C7A12D81A64FB117754135E48F28");
+	var comp=AdobeAn.getComposition("2D34704B39CDA14F8AC7F49DFAB79640");
 	var lib=comp.getLibrary();
 	var loader = new createjs.LoadQueue(false);
 	loader.installPlugin(createjs.Sound);
@@ -160,7 +161,8 @@ function handleComplete(evt,comp) {
 		function TextStyle(sRatio ,pRatio, h) {
 		
 		 font_size = ( h*pRatio*sRatio*(0.025) ).toString()+'px';
-		
+		 scal_x =  sRatio ;
+		 
 		var nodes =document.getElementsByTagName("input");
         for (var i=0; i<nodes.length; i++){
 
