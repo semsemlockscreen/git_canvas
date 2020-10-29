@@ -12465,6 +12465,13 @@ p.nominalBounds = new cjs.Rectangle(-271.9,-471,206.49999999999997,467);
 		
 			is_settin_clicked = false;
 			that.settin.gotoAndStop(0);
+			child_array = that.settin.children;
+			for(var i = 0 ; i<child_array.length ; i++){
+				
+				child_array[i].bkg.gotoAndStop(0);
+				
+			}
+			console.log('child_array' , child_array);
 		}
 		function overBtn(ev) {
 			//ev.currentTarget.bkg.alpha = 0.2;
@@ -16609,8 +16616,7 @@ p.nominalBounds = new cjs.Rectangle(-271.9,-471,206.49999999999997,467);
 			if (ev.nativeEvent instanceof MouseEvent) {
 				if (is_settin_clicked) {
 		
-					is_settin_clicked = false;
-					that.settin.gotoAndStop(0);
+					remove_settin();
 		
 				} else {
 					//that.tool_btn.removeEventListener("click", toTools);
