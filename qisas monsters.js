@@ -3214,7 +3214,7 @@ p.nominalBounds = new cjs.Rectangle(-62.6,-38,140,131.1);
 		
 						var iscorrect = correct(e.currentTarget);
 		
-						//todo block interaction
+						console.log('click onklk function')
 		
 		
 		
