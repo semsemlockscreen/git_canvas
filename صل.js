@@ -1987,6 +1987,11 @@ p.nominalBounds = new cjs.Rectangle(-7.2,-5.9,127.5,112);
 		 
 		var that = this
 		
+		document.body.style.overflow = 'hidden';
+		
+		
+		createjs.Touch.enable(stage, false, true);
+		
 		
 		var currentpage = 0;
 		var numOfQ = 3
