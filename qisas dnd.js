@@ -2843,7 +2843,7 @@ p.nominalBounds = new cjs.Rectangle(-44.1,-33.4,146.4,67);
 
 
 createjs.Touch.enable(stage, false, true);
-		
+alert(1)		
 		var currentpage = 0;
 		var numOfQ = 3
 		var myListofArraysFaul = [
