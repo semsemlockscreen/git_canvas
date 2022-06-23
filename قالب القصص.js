@@ -2433,7 +2433,7 @@ p.nominalBounds = new cjs.Rectangle(0,1,622.3,407.6);
 		
 		createjs.Touch.enable(stage, true, true);
 		
-		stage.preventSelection = false;
+		//stage.preventSelection = false;
 		
 		
 		function init() {
@@ -2673,7 +2673,7 @@ p.nominalBounds = new cjs.Rectangle(0,1,622.3,407.6);
 		function tostart(ev) {
 		
 		
-		
+		console.log('ev ' , ev)
 			if (ev.nativeEvent instanceof MouseEvent) {
 		
 				that.start.removeEventListener("click", tostart);
