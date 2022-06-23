@@ -2744,6 +2744,7 @@ p.nominalBounds = new cjs.Rectangle(-19,0,662.2,415);
 			
 			that.show.hijabDoda.visible = true
 			that.show.addChild(fodoliMc)
+			startSound('DODA1');
 			console.log( that.show.getChildIndex(fodoliMc))
 			setTimeout(function() {
 						
