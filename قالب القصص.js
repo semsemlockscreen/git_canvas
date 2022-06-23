@@ -2433,7 +2433,7 @@ p.nominalBounds = new cjs.Rectangle(0,1,622.3,407.6);
 		
 		createjs.Touch.enable(stage, true, true);
 		
-		//stage.preventSelection = false;
+		stage.preventSelection = false;
 		
 		
 		function init() {
