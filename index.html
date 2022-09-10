@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
-<title>question 1</title>
+<title>صل</title>
 <!-- write your code here -->
 <style>
   #animation_container {
@@ -21,15 +21,16 @@
 	top:0;bottom:0;
   }
 </style>
+
 <script src="zim_createjs.js"></script>
-<script src="question 1.js?1657013148671"></script>
+<script src="صل.js?1650633558418"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
 	canvas = document.getElementById("canvas");
 	anim_container = document.getElementById("animation_container");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("65BD07EDEAEC864896668B8A2BE06791");
+	var comp=AdobeAn.getComposition("DEAC4166318B4B47AD5E442104C63B05");
 	var lib=comp.getLibrary();
 	var loader = new createjs.LoadQueue(false);
 	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
@@ -50,7 +51,7 @@ function handleComplete(evt,comp) {
 	for(i=0; i<ssMetadata.length; i++) {
 		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
 	}
-	exportRoot = new lib.question1();
+	exportRoot = new lib.صل();
 	stage = new lib.Stage(canvas);	
 	//Registers the "tick" event listener.
 	fnStartAnimation = function() {
@@ -67,8 +68,8 @@ function handleComplete(evt,comp) {
 <!-- write your code here -->
 </head>
 <body onload="init();" style="margin:0px;">
-	<div id="animation_container" style="background-color:rgba(204, 204, 204, 1.00); width:800px; height:500px">
-		<canvas id="canvas" width="800" height="500" style="position: absolute; display: block; background-color:rgba(204, 204, 204, 1.00);"></canvas>
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:800px; height:500px">
+		<canvas id="canvas" width="800" height="500" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
 		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:800px; height:500px; position: absolute; left: 0px; top: 0px; display: block;">
 		</div>
 	</div>
