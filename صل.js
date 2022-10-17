@@ -3030,7 +3030,10 @@ p.nominalBounds = new cjs.Rectangle(-65.7,-73.7,155.9,195.7);
 		 
 		var that = this
 		
-		
+		stage.enableMouseOver(20);
+		createjs.Touch.enable(stage, true, true);
+
+                stage.preventSelection = false;
 		var currentpage = 0;
 		var sumOfLinks = 0
 		var numOfQ = 3
