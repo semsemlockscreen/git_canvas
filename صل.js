@@ -3029,955 +3029,997 @@ p.nominalBounds = new cjs.Rectangle(-65.7,-73.7,155.9,195.7);
 		this.clearAllSoundStreams();
 		 
 		var that = this
-		
-		
-		var currentpage = 0;
-		var sumOfLinks = 0
-		var numOfQ = 3
-		var farExercice = 0
-		var gameIsOver = false
-		
-		var myListofArraysFaul = [
-			[],
-			[],
-			[]
-		];
-		var myListofArraysCorr = [
-			[],
-			[],
-			[]
-		];
-		
-		var autorizedSingleQ = 3;
-		
-		var from_checkPrecedentQ = false
-		
-		
-		
-		var allQ_pages = [
-			[],
-			[],
-			[]
-		];
-		
-		
-		function scorCalcul() {
-		
-			//correlated correct answer CCA
-			// CCA =  correct answers(myListofArraysCorr) - incorrect(myListofArraysFaul)
-			//If the correct answer CA in DND game is equal to wrong answer WA then
-			// CCA is equal to 0	
-		
-		
-			//weighted CCA 	
-			// we devide CCA by all draged element in the exercices	done intel now
-			//  CCA / sumOfdragged
-		
-			//we multiply by  (exercices done / total exercices)
-		
-			//lengOfLists(myListofArraysCorr) / (allQ_pages.length + lengOfLists(myListofArraysFaul))
-		
-			var sco = (lengOfLists(myListofArraysCorr) - lengOfLists(myListofArraysFaul)) / (sumOfLinks / 2)
-			sco = Math.max(0, sco)
-		
-			var DoneByTotal = (farExercice + 1) / allQ_pages.length
-			var scoreForStudnt = lengOfLists(myListofArraysCorr) / allQ_pages.length
-		
-		
-			console.log('sco', sco)
-			console.log('sumOfdraged ', sumOfLinks)
-		
-			console.log('DoneByTotal', DoneByTotal)
-		
-			return [Math.round(sco * DoneByTotal * 100), Math.round(scoreForStudnt * 100)];
-		
+
+
+stage.enableMouseOver(20);
+createjs.Touch.enable(stage, true, true);
+
+stage.preventSelection = false;
+
+
+var currentpage = 0;
+var sumOfLinks = 0
+var numOfQ = 3
+var farExercice = 0
+var gameIsOver = false
+
+var myListofArraysFaul = [
+	[],
+	[],
+	[]
+];
+var myListofArraysCorr = [
+	[],
+	[],
+	[]
+];
+
+var autorizedSingleQ = 3;
+
+var from_checkPrecedentQ = false
+
+
+
+var allQ_pages = [
+	[],
+	[],
+	[]
+];
+
+var score = null
+	function scorCalcul() {
+
+		//correlated correct answer CCA
+		// CCA =  correct answers(myListofArraysCorr) - incorrect(myListofArraysFaul)
+		//If the correct answer CA in DND game is equal to wrong answer WA then
+		// CCA is equal to 0	
+
+
+		//weighted CCA 	
+		// we devide CCA by all draged element in the exercices	done intel now
+		//  CCA / sumOfdragged
+
+		//we multiply by  (exercices done / total exercices)
+
+		//lengOfLists(myListofArraysCorr) / (allQ_pages.length + lengOfLists(myListofArraysFaul))
+
+		var sco = (lengOfLists(myListofArraysCorr) - lengOfLists(myListofArraysFaul)) / (sumOfLinks / 2)
+		sco = Math.max(0, sco)
+
+		var DoneByTotal = (farExercice + 1) / allQ_pages.length
+		var scoreForStudnt = sumInner(allQ_pages) / allQ_pages.length
+
+
+		console.log('sco', sco)
+		console.log('sumOfdraged ', sumOfLinks)
+
+		console.log('DoneByTotal', DoneByTotal)
+
+		return [Math.round(sco * DoneByTotal * 100), Math.round(scoreForStudnt * 100)];
+
+	}
+
+
+
+that.hijab.start.addEventListener('click', startfirst)
+function startfirst(e) {
+
+	that.hijab.start.removeEventListener('click', startfirst)
+	startSound('ibdaa')
+
+	score = [0, 0]
+	console.log('score', score)
+	setTimeout(startSession, titleDuration['ibdaa'])
+
+}
+
+
+var cont = new createjs.Container();
+
+setTimeout(function () {
+
+	var ind = that.getChildIndex(that.scoreBoard)
+	that.addChildAt(cont, ind)
+
+}, 10);
+
+
+
+
+var emoErrArray = []
+var emoCorrArray = []
+
+setTimeout(function () {
+
+	getEmo();
+
+
+}, 10);
+
+
+function getEmo() {
+
+
+	var parent = that;
+	var keys = Object.keys(parent);
+	var len = keys.length;
+
+	while (--len) {
+
+
+		if (keys[len].slice(0, 4) == ("emoC")) {
+
+			parent[keys[len]].name = keys[len];
+
+			emoCorrArray.push(parent[keys[len]]);
+
+
+
+
 		}
-		
-		
-		
-		that.hijab.start.addEventListener('click', startfirst)
-		function startfirst(e) {
-		
-			that.hijab.start.removeEventListener('click', startfirst)
-			startSound('ibdaa')
-		
-			setTimeout(startSession, titleDuration['ibdaa'])
-		
+
+		if (keys[len].slice(0, 4) == ("emoE")) {
+
+			parent[keys[len]].name = keys[len];
+
+			emoErrArray.push(parent[keys[len]]);
+
+
+
 		}
-		
-		
-		var cont = new createjs.Container();
-		
+
+
+	}
+
+	sortbyName(emoErrArray)
+	sortbyName(emoCorrArray)
+
+	console.log('after sort', emoErrArray)
+}
+
+
+function sortbyName(arr) {
+
+	arr.sort(function (a, b) {
+		if (a.name < b.name) {
+			return -1;
+		}
+		if (a.name > b.name) {
+			return 1;
+		}
+		return 0;
+
+	})
+
+
+}
+
+function showLossWinMc(boo) {
+
+	createjs.Sound.stop()
+
+	var lMc = boo ? new lib.winMc() : new lib.lossMc()
+
+	var lsnd = boo ? 'win' : 'loss'
+
+	startSound(lsnd)
+	that.addChild(lMc)
+}
+
+
+function gameOver() {
+
+	console.log('+++++++++++++++++game over+++++++++++++++++++')
+	blockInteraction(true)
+
+	showError()
+
+	setTimeout(function () {
+
+		showLossWinMc(false)
+	}, 1200)
+
+	send_statis()
+}
+
+function checkGameOver() {
+
+	if (lengOfLists(myListofArraysFaul) == emoErrArray.length) {
+
+		gameIsOver = true
+
+		gameOver()
+	}
+
+}
+
+
+function showError() {
+
+	for (var i = 0; i < emoErrArray.length; i++) {
+
+		createjs.Tween.get(emoErrArray[i]).to({
+			rotation: 360
+		}, 1000);
+
+	}
+}
+
+function showNumOfemoError() {
+
+	for (var i = lengOfLists(myListofArraysFaul) - 1; i > lengOfLists(myListofArraysFaul) - 4; i--) {
+
+		createjs.Tween.get(emoErrArray[i])
+			.to({
+				rotation: 360
+			}, 1000)
+			.to({
+				rotation: 0
+			}, 0);
+
+
+	}
+
+}
+
+function showResu(bool) {
+
+	if (bool) {
+
+		var sm = sumInner(allQ_pages)
+		console.log('sumInner(allQ_pages)', sm)
+		emoCorrArray[sm].gotoAndPlay(1)
+
+	} else {
+
+
+
+		console.log('lengOfLists(myListofArraysFaul)', lengOfLists(myListofArraysFaul))
+		emoErrArray[lengOfLists(myListofArraysFaul)].gotoAndPlay(1)
+
+	}
+}
+
+function sumInner(lists) {
+
+	var total = 0;
+	for (var i = 0; i < lists.length; i++) {
+		console.log('sumInner first loop', i)
+		for (var j = 0; j < lists[i].length; j++) {
+			total += lists[i][j];
+		}
+
+	}
+	return total
+}
+
+
+function lengOfLists(lists) {
+
+
+	var lengths = 0;
+
+	for (var i = 0; i < lists.length; i++) {
+
+		lengths = lengths + lists[i].length
+
+	}
+	return lengths
+}
+
+
+
+
+
+function startSession() {
+
+	createjs.Sound.stop()
+	that.hijab.visible = false
+	cont.removeAllChildren()
+
+	cont.mc = new lib['Mcsil' + currentpage]();
+	cont.mc.name = 'Mcsil' + currentpage;
+
+	console.log('Mcsil' + currentpage)
+	farExercice = Math.max(farExercice, currentpage)
+
+	cont.mc.x = lib.properties["width"] / 2 - (cont.mc.getBounds().width / 2);
+	cont.mc.y = lib.properties["height"] / 2 - (cont.mc.getBounds().height / 2);
+
+
+	var ind = that.getChildIndex(that.scoreBoard)
+	that.addChildAt(cont, ind)
+
+
+	getElementAndAlpha_mc(cont.mc);
+
+
+	setTimeout(function () {
+
+
+
+		cont.addChild(cont.mc);
+		animeImages()
+		silManager(cont.mc)
+
+	}, 20);
+
+
+
+}
+
+
+
+var linkArray = []
+
+	function getElementAndAlpha_mc(silMc) {
+
+		linkArray = []
+
 		setTimeout(function () {
-		
-			var ind = that.getChildIndex(that.scoreBoard)
-			that.addChildAt(cont, ind)
-		
+
+			getLink();
+
+
 		}, 10);
-		
-		
-		
-		
-		var emoErrArray = []
-		var emoCorrArray = []
-		
-		setTimeout(function () {
-		
-			getEmo();
-		
-		
-		}, 10);
-		
-		
-		function getEmo() {
-		
-		
-			var parent = that;
+
+
+		function getLink() {
+
+
+			var parent = silMc;
 			var keys = Object.keys(parent);
 			var len = keys.length;
-		
+
 			while (--len) {
-		
-		
-				if (keys[len].slice(0, 4) == ("emoC")) {
-		
+
+
+
+				if (keys[len].slice(1, 5) === ("LINK")) {
+
+
+					parent[keys[len]].scaleX = 0.2
+					parent[keys[len]].scaleY = 0.2
+
+					parent[keys[len]].alpha = 0
 					parent[keys[len]].name = keys[len];
-		
-					emoCorrArray.push(parent[keys[len]]);
-		
-		
-		
-		
+
+					linkArray.push(parent[keys[len]]);
 				}
-		
-				if (keys[len].slice(0, 4) == ("emoE")) {
-		
-					parent[keys[len]].name = keys[len];
-		
-					emoErrArray.push(parent[keys[len]]);
-		
-		
-		
-				}
-		
-		
 			}
-		
-			sortbyName(emoErrArray)
-			sortbyName(emoCorrArray)
-		
-			console.log('after sort', emoErrArray)
+			numOfLink = linkArray.length
+			if (!from_checkPrecedentQ) sumOfLinks += numOfLink
+
 		}
-		
-		
-		function sortbyName(arr) {
-		
-			arr.sort(function (a, b) {
-				if (a.name < b.name) {
-					return -1;
-				}
-				if (a.name > b.name) {
-					return 1;
-				}
-				return 0;
-		
+
+
+	}
+
+
+
+var imageTimeAnime = 1500
+	function animeImages() {
+
+
+		blockInteraction(true)
+		for (var u = 0; u < linkArray.length; u++) {
+
+
+			createjs.Tween.get(linkArray[u], {
+				loop: false
 			})
-		
-		
+				.to({
+						scaleX: 1.0,
+						scaleY: 1.0,
+						alpha: 1
+					},
+					imageTimeAnime, createjs.Ease.getBackOut(2))
 		}
-		
-		function showLossWinMc(boo) {
-		
-			createjs.Sound.stop()
-		
-			var lMc = boo ? new lib.winMc() : new lib.lossMc()
-		
-			var lsnd = boo ? 'win' : 'loss'
-		
-			startSound(lsnd)
-			that.addChild(lMc)
+
+		setTimeout(function () {
+
+
+			addTitle()
+
+		}, imageTimeAnime);
+	}
+
+	function addTitle() {
+
+		blockInteraction(false)
+		return
+		startSound('title' + 0)
+
+		setTimeout(
+			function () {
+
+				blockInteraction(false)
+			}, titleDuration['title' + 0]);
+	}
+
+
+	function blockInteraction(boo) {
+
+		cont.mc.mouseEnabled = !boo
+
+		if (gameIsOver) cont.mc.mouseEnabled = false
+	}
+
+
+	function silManager(silMc) {
+
+
+		var pt, lastPoint, numOfLink = 0,
+			strngOfLinkDown, strngCode1, strngCode2;
+		var downOnAcceptedMc, ismove;
+
+		var correctCount = 0;
+		var TwomcArray = [];
+
+
+		setlisteners();
+
+
+		silMc.shapeDraw = new createjs.Shape();
+		silMc.shapeDraw0 = new createjs.Shape();
+
+		silMc.shapeDraw.cache(0, 0, 1000, 600);
+
+
+
+		function setlisteners() {
+
+
+
+			for (var l = 0; l < linkArray.length; l++) {
+
+				linkArray[l].addEventListener("mousedown", ondown);
+
+
+				linkArray[l].addEventListener("rollover", overBtn);
+				linkArray[l].addEventListener("rollout", outBtn);
+
+			}
+
+			silMc.addEventListener("pressup", onup);
+
+
+
+
 		}
-		
-		
-		function gameOver() {
-		
-			console.log('+++++++++++++++++game over+++++++++++++++++++')
+
+		function removelisteners() {
+
+
+			for (var l = 0; l < linkArray.length; l++) {
+
+
+				linkArray[l].removeEventListener("mousedown", ondown);
+				linkArray[l].removeEventListener("rollover", overBtn);
+				linkArray[l].removeEventListener("rollout", outBtn);
+
+
+			}
+
+			silMc.removeEventListener("pressup", onup);
+
+
+		}
+
+
+
+		function overBtn(ev) {
+
+
+			ev.currentTarget.bkg.gotoAndStop(1);
+
+
+
+		}
+		function outBtn(ev) {
+
+
+			ev.currentTarget.bkg.gotoAndStop(0);
+
+		}
+
+
+
+
+		var sbr = new createjs.Container();
+
+		sbr.x = 0;
+		sbr.y = 0;
+
+
+
+		sbr.mouseEnabled = false;
+		silMc.addChild(sbr);
+
+
+
+
+		sbr.addChild(silMc.shapeDraw0);
+
+		sbr.addChild(silMc.shapeDraw);
+
+		function onpressmove_sil(evt) {
+
+
+			ismove = true;
+
+			pt = sbr.globalToLocal(evt.stageX, evt.stageY);
+
+			//silMc.shapeDraw.graphics.clear();
+			// drawPenLine(that.shapeDraw , pt)
+			silMc.shapeDraw.graphics.beginStroke("#000000")
+
+			.setStrokeStyle(3, "round")
+				.moveTo(lastPoint.x, lastPoint.y)
+				.lineTo(pt.x, pt.y);
+
+			silMc.shapeDraw.updateCache("source-over");
+
+			silMc.shapeDraw.graphics.clear();
+
+			lastPoint.x = pt.x
+			lastPoint.y = pt.y
+
+		}
+
+		var currentHit_sil = null;
+		function checkHit_sil(pt) {
+
+			var rect = {
+
+				x: pt.x,
+				y: pt.y,
+			}
+
+
+			for (var u = 0; u < linkArray.length; u++) {
+
+
+
+				var rect2 = linkArray[u];
+
+				if ((Math.abs(rect.x - rect2.x) < rect2.getTransformedBounds().width / 2) && Math.abs(rect.y - rect2.y) < (rect2.getTransformedBounds().height / 2)) {
+
+
+
+					currentHit_sil = rect2;
+					return true;
+				}
+			}
+
+
+			return false;
+		}
+
+		function onup(ev) {
+
+
+			silMc.removeEventListener("pressmove", onpressmove_sil);
+			TwomcArray[0].addEventListener("rollover", overBtn);
+			TwomcArray[0].addEventListener("rollout", outBtn);
+
+			silMc.shapeDraw.graphics.clear();
+			silMc.shapeDraw.updateCache();
+
+
+			checkHit_sil(sbr.globalToLocal(ev.stageX, ev.stageY));
+
+			TwomcArray[0].bkg.gotoAndStop(0)
+
+
+			if ((currentHit_sil) != null && downOnAcceptedMc && ismove) {
+				console.log('up on ', currentHit_sil.name)
+				ismove = false;
+
+
+				TwomcArray[1] = currentHit_sil;
+
+				strngCode2 = TwomcArray[1].name.slice(6, 8);
+
+
+				console.log(TwomcArray[0].name, TwomcArray[1].name)
+
+				if (strngOfLinkDown == TwomcArray[1].name.slice(1, 6)) {
+
+					return;
+				}
+
+				var iscorr = iscorrect(strngCode1, strngCode2);
+
+				if (iscorr) {
+
+					TwomcArray[0].bkg.gotoAndStop(3)
+					TwomcArray[1].bkg.gotoAndStop(3)
+
+					TwomcArray[0].removeEventListener("rollout", outBtn);
+					TwomcArray[1].removeEventListener("rollout", outBtn);
+
+					TwomcArray[0].mouseEnabled = false
+					TwomcArray[1].mouseEnabled = false
+
+					startSound('addsound')
+					myListofArraysCorr[currentpage].push(strngCode2 + ' , ' + strngCode1)
+					correctCount += 1
+				} else {
+
+					TwomcArray[0].bkg.gotoAndStop(0)
+					startSound('fault')
+					//TwomcArray[1].bkg.gotoAndStop(0)
+					animeFault(TwomcArray)
+					myListofArraysFaul[currentpage].push(strngCode2 + ' , ' + strngCode1)
+				}
+
+			}
+
+			checkGameOver()
+			//targetTozero();
+
+
+			if (conditionChangeSess() && !gameIsOver) {
+
+
+				if (sessionAfterRightResp) {
+
+					//setTimeout(startNextSession, 2000);
+					startNextSession()
+
+				} else {
+
+					showNumOfemoError()
+					removelisteners()
+					startNextSession();
+				}
+			}
+
+
+			downOnAcceptedMc = false;
+			currentHit_sil = null;
+		}
+
+		function animeFault(arrFaulr) {
+
 			blockInteraction(true)
-		
-			showError()
-		
-			setTimeout(function () {
-		
-				showLossWinMc(false)
-			}, 1200)
-		
-			send_statis()
-		}
-		
-		function checkGameOver() {
-		
-			if (lengOfLists(myListofArraysFaul) == emoErrArray.length) {
-		
-				gameIsOver = true
-		
-				gameOver()
-			}
-		
-		}
-		
-		
-		function showError() {
-		
-			for (var i = 0; i < emoErrArray.length; i++) {
-		
-				createjs.Tween.get(emoErrArray[i]).to({
-					rotation: 360
-				}, 1000);
-		
-			}
-		}
-		
-		function showNumOfemoError() {
-		
-			for (var i = lengOfLists(myListofArraysFaul) - 1; i > lengOfLists(myListofArraysFaul) - 4; i--) {
-		
-				createjs.Tween.get(emoErrArray[i])
+
+			for (var i = 0; i < arrFaulr.length; i++) {
+
+				createjs.Tween.get(arrFaulr[i])
 					.to({
-						rotation: 360
-					}, 1000)
+						rotation: 20
+					}, 100)
+					.to({
+						rotation: -20
+					}, 100)
+					.to({
+						rotation: 20
+					}, 100)
+					.to({
+						rotation: -20
+					}, 100)
 					.to({
 						rotation: 0
-					}, 0);
-		
-		
+					}, 100).call(blockInteraction, [false]);
 			}
-		
+
+
 		}
-		
-		function showResu(bool) {
-		
-			if (bool) {
-		
-				var sm = sumInner(allQ_pages)
-				console.log('sumInner(allQ_pages)', sm)
-				emoCorrArray[sm].gotoAndPlay(1)
-		
-			} else {
-		
-		
-		
-				console.log('lengOfLists(myListofArraysFaul)', lengOfLists(myListofArraysFaul))
-				emoErrArray[lengOfLists(myListofArraysFaul)].gotoAndPlay(1)
-		
+
+
+		function conditionChangeSess() {
+
+
+			console.log('myListofArraysFaul[currentpage]', myListofArraysFaul[currentpage])
+			console.log('allQ_pages', allQ_pages)
+			if (correctCount == linkArray.length / 2) {
+
+				showResu(true); //show Resu score befor filling the allQ_pages array
+				allQ_pages[currentpage].push(1)
+
+				sessionAfterRightResp = true
+				return true;
 			}
-		}
-		
-		function sumInner(lists) {
-		
-			var total = 0;
-			for (var i = 0; i < lists.length; i++) {
-				console.log('sumInner first loop', i)
-				for (var j = 0; j < lists[i].length; j++) {
-					total += lists[i][j];
-				}
-		
+
+			if ((myListofArraysFaul[currentpage].length + 1) % (autorizedSingleQ + (autorizedSingleQ * allQ_pages[currentpage].length) + 1) == 0) {
+
+				allQ_pages[currentpage].push(0)
+				sessionAfterRightResp = false
+				return true;
+
 			}
-			return total
+
+			sessionAfterRightResp = false
+			return false
 		}
-		
-		
-		function lengOfLists(lists) {
-		
-		
-			var lengths = 0;
-		
-			for (var i = 0; i < lists.length; i++) {
-		
-				lengths = lengths + lists[i].length
-		
-			}
-			return lengths
-		}
-		
-		
-		
-		
-		
-		function startSession() {
-		
-			createjs.Sound.stop()
-			that.hijab.visible = false
-			cont.removeAllChildren()
-		
-			cont.mc = new lib['Mcsil' + currentpage]();
-			cont.mc.name = 'Mcsil' + currentpage;
-		
-			console.log('Mcsil' + currentpage)
-			farExercice = Math.max(farExercice, currentpage)
-		
-			cont.mc.x = lib.properties["width"] / 2 - (cont.mc.getBounds().width / 2);
-			cont.mc.y = lib.properties["height"] / 2 - (cont.mc.getBounds().height / 2);
-		
-		
-			var ind = that.getChildIndex(that.scoreBoard)
-			that.addChildAt(cont, ind)
-		
-		
-			getElementAndAlpha_mc(cont.mc);
-		
-		
+
+		function preStartSession() {
+
 			setTimeout(function () {
-		
-		
-		
-				cont.addChild(cont.mc);
-				animeImages()
-				silManager(cont.mc)
-		
-			}, 20);
-		
-		
-		
+
+				startSound('session')
+
+			}, 1000);
+
+
+			setTimeout(function () {
+
+				startSession()
+			}, 2500);
+
+
 		}
-		
-		
-		
-		var linkArray = []
-		
-			function getElementAndAlpha_mc(silMc) {
-		
-				linkArray = []
-		
-				setTimeout(function () {
-		
-					getLink();
-		
-		
-				}, 10);
-		
-		
-				function getLink() {
-		
-		
-					var parent = silMc;
-					var keys = Object.keys(parent);
-					var len = keys.length;
-		
-					while (--len) {
-		
-		
-		
-						if (keys[len].slice(1, 5) === ("LINK")) {
-		
-		
-							parent[keys[len]].scaleX = 0.2
-							parent[keys[len]].scaleY = 0.2
-		
-							parent[keys[len]].alpha = 0
-							parent[keys[len]].name = keys[len];
-		
-							linkArray.push(parent[keys[len]]);
-						}
-					}
-					numOfLink = linkArray.length
-					if (!from_checkPrecedentQ) sumOfLinks += numOfLink
-		
-				}
-		
-		
+
+		function startNextSession() {
+
+			send_statis()
+			console.log('from startNextSession check', from_checkPrecedentQ)
+
+
+			if ((currentpage + 1) < numOfQ && allQ_pages[currentpage + 1].length == 0) {
+				currentpage = currentpage + 1;
+
+				preStartSession()
+
+
+			} else {
+
+				checkPrecedentQ()
+
+
 			}
-		
-		
-		
-		var imageTimeAnime = 1500
-			function animeImages() {
-		
-		
-				blockInteraction(true)
-				for (var u = 0; u < linkArray.length; u++) {
-		
-		
-					createjs.Tween.get(linkArray[u], {
-						loop: false
-					})
-						.to({
-								scaleX: 1.0,
-								scaleY: 1.0,
-								alpha: 1
-							},
-							imageTimeAnime, createjs.Ease.getBackOut(2))
-				}
-		
-				setTimeout(function () {
-		
-		
-					addTitle()
-		
-				}, imageTimeAnime);
-			}
-		
-			function addTitle() {
-		
-		
-				startSound('title' + 0)
-		
-				setTimeout(
-					function () {
-		
-						blockInteraction(false)
-					}, titleDuration['title' + 0]);
-			}
-		
-		
-			function blockInteraction(boo) {
-		
-				cont.mc.mouseEnabled = !boo
-		
-				if (gameIsOver) cont.mc.mouseEnabled = false
-			}
-		
-		
-			function silManager(silMc) {
-		
-		
-				var pt, lastPoint, numOfLink = 0,
-					strngOfLinkDown, strngCode1, strngCode2;
-				var downOnAcceptedMc, ismove;
-		
-				var correctCount = 0;
-				var TwomcArray = [];
-		
-		
-				setlisteners();
-		
-		
-				silMc.shapeDraw = new createjs.Shape();
-				silMc.shapeDraw0 = new createjs.Shape();
-		
-				silMc.shapeDraw.cache(0, 0, 1000, 600);
-		
-		
-		
-				function setlisteners() {
-		
-		
-		
-					for (var l = 0; l < linkArray.length; l++) {
-		
-						linkArray[l].addEventListener("mousedown", ondown);
-		
-		
-		
-					}
-		
-					silMc.addEventListener("pressup", onup);
-		
-		
-		
-		
-				}
-		
-				function removelisteners() {
-		
-		
-					for (var l = 0; l < linkArray.length; l++) {
-		
-		
-						linkArray[l].removeEventListener("mousedown", ondown);
-		
-		
-		
-					}
-		
-					silMc.removeEventListener("pressup", onup);
-		
-		
-				}
-		
-		
-		
-				var sbr = new createjs.Container();
-		
-				sbr.x = 0;
-				sbr.y = 0;
-		
-		
-		
-				sbr.mouseEnabled = false;
-				silMc.addChild(sbr);
-		
-		
-		
-		
-				sbr.addChild(silMc.shapeDraw0);
-		
-				sbr.addChild(silMc.shapeDraw);
-		
-				function onpressmove_sil(evt) {
-		
-		
-					ismove = true;
-		
-					pt = sbr.globalToLocal(evt.stageX, evt.stageY);
-		
-					//silMc.shapeDraw.graphics.clear();
-					// drawPenLine(that.shapeDraw , pt)
-					silMc.shapeDraw.graphics.beginStroke("#000000")
-		
-					.setStrokeStyle(3, "round")
-						.moveTo(lastPoint.x, lastPoint.y)
-						.lineTo(pt.x, pt.y);
-		
-					silMc.shapeDraw.updateCache("source-over");
-		
-					silMc.shapeDraw.graphics.clear();
-		
-					lastPoint.x = pt.x
-					lastPoint.y = pt.y
-		
-				}
-		
-				var currentHit_sil = null;
-				function checkHit_sil(pt) {
-		
-					var rect = {
-		
-						x: pt.x,
-						y: pt.y,
-					}
-		
-		
-					for (var u = 0; u < linkArray.length; u++) {
-		
-		
-		
-						var rect2 = linkArray[u];
-		
-						if ((Math.abs(rect.x - rect2.x) < rect2.getTransformedBounds().width / 2) && Math.abs(rect.y - rect2.y) < (rect2.getTransformedBounds().height / 2)) {
-		
-		
-		
-							currentHit_sil = rect2;
-							return true;
-						}
-					}
-		
-		
-					return false;
-				}
-		
-				function onup(ev) {
-		
-		
-					silMc.removeEventListener("pressmove", onpressmove_sil);
-		
-					silMc.shapeDraw.graphics.clear();
-					silMc.shapeDraw.updateCache();
-		
-		
-					checkHit_sil(sbr.globalToLocal(ev.stageX, ev.stageY));
-		
-					TwomcArray[0].bkg.gotoAndStop(0)
-		
-		
-					if ((currentHit_sil) != null && downOnAcceptedMc && ismove) {
-						console.log('up on ', currentHit_sil.name)
-						ismove = false;
-		
-		
-						TwomcArray[1] = currentHit_sil;
-		
-						strngCode2 = TwomcArray[1].name.slice(6, 8);
-		
-		
-						console.log(TwomcArray[0].name, TwomcArray[1].name)
-		
-						if (strngOfLinkDown == TwomcArray[1].name.slice(1, 6)) {
-		
-							return;
-						}
-		
-						var iscorr = iscorrect(strngCode1, strngCode2);
-		
-						if (iscorr) {
-		
-							TwomcArray[0].bkg.gotoAndStop(5)
-							TwomcArray[1].bkg.gotoAndStop(5)
-		
-							TwomcArray[0].mouseEnabled = false
-							TwomcArray[1].mouseEnabled = false
-		
-							startSound('addsound')
-							myListofArraysCorr[currentpage].push(strngCode2 + ' , ' + strngCode1)
-							correctCount += 1
-						} else {
-		
-							TwomcArray[0].bkg.gotoAndStop(0)
-							startSound('fault')
-							//TwomcArray[1].bkg.gotoAndStop(0)
-							animeFault(TwomcArray)
-							myListofArraysFaul[currentpage].push(strngCode2 + ' , ' + strngCode1)
-						}
-		
-					}
-		
-					checkGameOver()
-					//targetTozero();
-		
-		
-					if (conditionChangeSess() && !gameIsOver) {
-		
-		
-						if (sessionAfterRightResp) {
-		
-							setTimeout(startNextSession, 2000);
-		
-						} else {
-		
-							showNumOfemoError()
-							removelisteners()
-							startNextSession();
-						}
-					}
-		
-		
-					downOnAcceptedMc = false;
-					currentHit_sil = null;
-				}
-		
-				function animeFault(arrFaulr) {
-		
-					blockInteraction(true)
-		
-					for (var i = 0; i < arrFaulr.length; i++) {
-		
-						createjs.Tween.get(arrFaulr[i])
-							.to({
-								rotation: 20
-							}, 100)
-							.to({
-								rotation: -20
-							}, 100)
-							.to({
-								rotation: 20
-							}, 100)
-							.to({
-								rotation: -20
-							}, 100)
-							.to({
-								rotation: 0
-							}, 100).call(blockInteraction, [false]);
-					}
-		
-		
-				}
-		
-		
-				function conditionChangeSess() {
-		
-		
-					console.log('myListofArraysFaul[currentpage]', myListofArraysFaul[currentpage])
-					console.log('allQ_pages', allQ_pages)
-					if (correctCount == linkArray.length / 2) {
-		
-						showResu(true); //show Resu score befor filling the allQ_pages array
-						allQ_pages[currentpage].push(1)
-		
-						sessionAfterRightResp = true
-						return true;
-					}
-		
-					if ((myListofArraysFaul[currentpage].length + 1) % (autorizedSingleQ + (autorizedSingleQ * allQ_pages[currentpage].length) + 1) == 0) {
-		
-						allQ_pages[currentpage].push(0)
-						sessionAfterRightResp = false
-						return true;
-		
-					}
-		
-					sessionAfterRightResp = false
-					return false
-				}
-		
-		
-				function startNextSession() {
-		
-					send_statis()
-					console.log('from startNextSession check', from_checkPrecedentQ)
-		
-					if (currentpage == numOfQ - 1 || from_checkPrecedentQ) {
-		
-						checkPrecedentQ()
-		
-						return
-					}
-					if (allQ_pages[currentpage + 1].length == 0 || allQ_pages[currentpage + 1] == 0) {
-						currentpage = currentpage + 1;
-		
-		
-						setTimeout(function () {
-		
-							startSound('session')
-		
-						}, 1000);
-		
-		
-						setTimeout(function () {
-		
-							startSession()
-						}, 2500);
-		
-					}
-		
-		
-		
-		
-				}
-		
-				function checkPrecedentQ() {
-		
-					from_checkPrecedentQ = false;
-					console.log('from checkPrecedentQ : allQ_pages', allQ_pages)
-					for (var i = 0; i < allQ_pages.length; i++) {
-		
-						if (allQ_pages[i].length == 0 || allQ_pages[i][allQ_pages[i].length - 1] == 0) {
-		
-							currentpage = i
-		
-							from_checkPrecedentQ = true;
-		
-							startSession();
-		
-							break
-						}
-					}
-		
-					if (!from_checkPrecedentQ) {
-		
-						showLossWinMc(true)
-						alert('anihhhhaaaaya')
-		
-						send_statis();
-					}
-		
-				}
-		
-		
-		
-		
-		
-		
-				function ondown(ev) {
-		
-					ev.nativeEvent.preventDefault();
-					downOnAcceptedMc = true;
-		
-		
-					var mmc = ev.currentTarget;
-		
-					mmc.bkg.play()
-					startSound('addsound')
-		
-					lastPoint = silMc.localToLocal(mmc.x + AddRorL(mmc).x, mmc.y + AddRorL(mmc).y, sbr);
-					silMc.addEventListener("pressmove", onpressmove_sil);
-		
-					TwomcArray[0] = mmc;
-					strngOfLinkDown = TwomcArray[0].name.slice(1, 6);
-					strngCode1 = TwomcArray[0].name.slice(6, 8);
-		
-					console.log('down on ', mmc.name)
-		
-		
-		
-		
-				}
-		
-		
-		
-		
-				function AddRorL(MCC) {
-		
-					var dist = {};
-		
-					var ts = MCC.name.slice(5, 6);
-		
-					if (ts === "L") {
-		
-						dist.x = MCC.getTransformedBounds().width / 2;
-						dist.y = 0;
-		
-					} else if (ts === "R") {
-		
-						dist.x = 0 - MCC.getTransformedBounds().width / 2;
-						dist.y = 0;
-					}
-		
-		
-					if (ts === "T") {
-		
-						dist.x = 0;
-						dist.y = MCC.getTransformedBounds().height / 2;
-		
-					} else if (ts === "B") {
-		
-						dist.x = 0;
-						dist.y = 0 - MCC.getTransformedBounds().height / 2;
-					}
-		
-					return dist;
-				}
-		
-		
-		
-		
-				function iscorrect(nameDown, nameUp) {
-		
-					if (nameDown == nameUp) {
-		
-						console.log('correct')
-						drawLine(TwomcArray[1], TwomcArray[0]);
-		
-						return true
-		
-					}
-		
-					showResu(false)
-		
-					return false
-				}
-		
-		
-		
-				function drawLine(oldObject, newObject, color) {
-		
-					var col = (typeof color === 'undefined') ? "#000000" : color;
-		
-					silMc.shapeDraw0.graphics.beginStroke(col)
-		
-					.setStrokeStyle(3, "round")
-		
-					.moveTo(oldObject.x + AddRorL(oldObject).x, oldObject.y + AddRorL(oldObject).y)
-		
-					.lineTo(newObject.x + AddRorL(newObject).x, newObject.y + AddRorL(newObject).y);
-		
-		
-					stage.update();
-		
-				}
-		
-		
-		
-		
-			}
-		
-		
-		
-			function send_statis() {
-		
-				console.log('==++++++++++++++++++++++++++++++++++++++++++++++++==')
-				console.log()
-				console.log('allQ_pages', allQ_pages)
-		
-				console.log('myListofArraysFaul', myListofArraysFaul)
-		
-				console.log('score ', scorCalcul())
-			}
-		
-		
-		
-		var titleDuration = {}
-		
-		var sound_manif = [];
-		
-		///////////////  sound  //////////////////////
-		
-		
-		if (!createjs.Sound.isReady()) {
-			// createjs.FlashAudioPlugin.swfPath = "../src/soundjs/flashaudio/";
-			createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
+
+
 		}
-		
-		
-		var sound_listener = createjs.Sound.on("fileload", handleFileLoad);
-		createjs.Sound.alternateExtensions = ["ogg"];
-		soundIsReady = createjs.Sound.registerSounds(
-			[{
-				id: "ibdaa",
-				src: "ibdaa.mp3"
-			}, {
-				id: "title0",
-				src: "title0.mp3"
-			}], "mysound/");
-		
-		
-		
-		function handleFileLoad(event) {
-			// A sound has been preloaded. This will fire multiple time
-		
-			//if (!event.id.startsWith('title')) return;
-		
-			sound_manif.push(event.id);
-			myInstance = createjs.Sound.createInstance(event.id);
-			console.log(event.id, myInstance.duration)
-			titleDuration[event.id] = Math.round(myInstance.duration) + 200
-		
-		}
-		
-		
-		
-		
-		function startSound(sout) {
-		
-			console.log('sound name to ply', sout);
-		
-			if (sound_manif.includes(sout)) {
-		
-				console.log('sound_manif.includes == true');
-				music_play(sout);
-				return;
+
+		function checkPrecedentQ() {
+
+			from_checkPrecedentQ = false;
+			console.log('from checkPrecedentQ : allQ_pages', allQ_pages)
+			for (var i = 0; i < allQ_pages.length; i++) {
+
+				if (allQ_pages[i][allQ_pages[i].length - 1] == 0) {
+
+					currentpage = i
+
+					from_checkPrecedentQ = true;
+
+
+					preStartSession()
+
+
+					break
+				}
 			}
-		
-		
-			createjs.Sound.on("fileload", handleLoad);
-			//createjs.Sound.alternateExtensions = ["ogg"];
-			///createjs.Sound.addEventListener("fileload", handleLoad);
-		
-			soundIsReady = createjs.Sound.registerSound("mysound/" + sout + ".mp3", sout);
-		
-		}
-		
-		
-		
-		function handleLoad(event) {
-		
-			music_play(event.id);
-			sound_manif.push(event.id);
-		
-		}
-		
-		
-		
-		
-		function music_play(sound_sout) {
-		
-			//createjs.Sound.stop();
-		
-			if (soundIsReady) {
-		
-		
-				that.music = createjs.Sound.play(sound_sout);
-		
-				that.music.on("complete", handleComplete);
-		
-		
+
+			if (!from_checkPrecedentQ) {
+
+				showLossWinMc(true)
+
+				send_statis();
 			}
-		
+
 		}
-		
-		function handleComplete() {
-		
-			console.log('sound complete');
+
+
+
+
+
+
+		function ondown(ev) {
+
+			ev.nativeEvent.preventDefault();
+			downOnAcceptedMc = true;
+
+
+			var mmc = ev.currentTarget;
+
+			mmc.bkg.gotoAndStop(2)
+			startSound('addsound')
+
+			lastPoint = sbr.globalToLocal(ev.stageX, ev.stageY);
+			
+			silMc.addEventListener("pressmove", onpressmove_sil);
+
+			mmc.removeEventListener("rollover", overBtn);
+			mmc.removeEventListener("rollout", outBtn);
+
+			TwomcArray[0] = mmc;
+			strngOfLinkDown = TwomcArray[0].name.slice(1, 6);
+			strngCode1 = TwomcArray[0].name.slice(6, 8);
+
+
+
 		}
+
+
+
+
+		function AddRorL(MCC) {
+
+			var dist = {};
+
+			var ts = MCC.name.slice(5, 6);
+
+			if (ts === "L") {
+
+				dist.x = MCC.getTransformedBounds().width / 2;
+				dist.y = 0;
+
+			} else if (ts === "R") {
+
+				dist.x = 0 - MCC.getTransformedBounds().width / 2;
+				dist.y = 0;
+			}
+
+
+			if (ts === "T") {
+
+				dist.x = 0;
+				dist.y = MCC.getTransformedBounds().height / 2;
+
+			} else if (ts === "B") {
+
+				dist.x = 0;
+				dist.y = 0 - MCC.getTransformedBounds().height / 2;
+			}
+
+			return dist;
+		}
+
+
+
+
+		function iscorrect(nameDown, nameUp) {
+
+			if (nameDown == nameUp) {
+
+				console.log('correct')
+				drawLine(TwomcArray[1], TwomcArray[0]);
+
+				return true
+
+			}
+
+			showResu(false)
+
+			return false
+		}
+
+
+
+		function drawLine(oldObject, newObject, color) {
+
+			var col = (typeof color === 'undefined') ? "#000000" : color;
+
+			silMc.shapeDraw0.graphics.beginStroke(col)
+
+			.setStrokeStyle(3, "round")
+
+			.moveTo(oldObject.x + AddRorL(oldObject).x, oldObject.y + AddRorL(oldObject).y)
+
+			.lineTo(newObject.x + AddRorL(newObject).x, newObject.y + AddRorL(newObject).y);
+
+
+			stage.update();
+
+		}
+
+
+
+
+	}
+
+
+
+	function send_statis() {
+
+		console.log('==++++++++++++++++++++++++++++++++++++++++++++++++==')
+		console.log()
+		console.log('allQ_pages', allQ_pages)
+
+		console.log('myListofArraysFaul', myListofArraysFaul)
+		score = scorCalcul()
+		console.log('score ', score)
+	}
+
+
+
+var titleDuration = {}
+
+var sound_manif = [];
+
+///////////////  sound  //////////////////////
+
+
+if (!createjs.Sound.isReady()) {
+	// createjs.FlashAudioPlugin.swfPath = "../src/soundjs/flashaudio/";
+	createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
+}
+
+
+var sound_listener = createjs.Sound.on("fileload", handleFileLoad);
+createjs.Sound.alternateExtensions = ["ogg"];
+soundIsReady = createjs.Sound.registerSounds(
+	[{
+		id: "ibdaa",
+		src: "ibdaa.mp3"
+	}, {
+		id: "title0",
+		src: "title0.mp3"
+	}], "mysound/");
+
+
+
+function handleFileLoad(event) {
+	// A sound has been preloaded. This will fire multiple time
+
+	//if (!event.id.startsWith('title')) return;
+
+	sound_manif.push(event.id);
+	myInstance = createjs.Sound.createInstance(event.id);
+	console.log(event.id, myInstance.duration)
+	titleDuration[event.id] = Math.round(myInstance.duration) + 200
+
+}
+
+
+
+
+function startSound(sout) {
+
+	console.log('sound name to ply', sout);
+
+	if (sound_manif.includes(sout)) {
+
+		console.log('sound_manif.includes == true');
+		music_play(sout);
+		return;
+	}
+
+
+	createjs.Sound.on("fileload", handleLoad);
+	//createjs.Sound.alternateExtensions = ["ogg"];
+	///createjs.Sound.addEventListener("fileload", handleLoad);
+
+	soundIsReady = createjs.Sound.registerSound("mysound/" + sout + ".mp3", sout);
+
+}
+
+
+
+function handleLoad(event) {
+
+	music_play(event.id);
+	sound_manif.push(event.id);
+
+}
+
+
+
+
+function music_play(sound_sout) {
+
+	//createjs.Sound.stop();
+
+	if (soundIsReady) {
+
+
+		that.music = createjs.Sound.play(sound_sout);
+
+		that.music.on("complete", handleComplete);
+
+
+	}
+
+}
+
+function handleComplete() {
+
+	console.log('sound complete');
+}
 	}
 
 	// actions tween:
